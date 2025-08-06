@@ -8,6 +8,7 @@ from tensorflow.keras.utils import to_categorical
 from image_preprocessing import preprocess_img
 
 # https://www.kaggle.com/datasets/grassknoted/asl-alphabet
+# http://public.roboflow.com/object-detection/american-sign-language-letters
 BASE_DIR = os.path.dirname(__file__)
 ROOT = os.path.dirname(BASE_DIR)
 DATA_PATH = os.path.join(ROOT, 'data', 'raw')
