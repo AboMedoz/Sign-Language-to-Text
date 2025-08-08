@@ -5,7 +5,6 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 BASE_DIR = os.path.dirname(__file__)
 ROOT = os.path.dirname(BASE_DIR)
@@ -20,7 +19,7 @@ class_names = data['class_names'].tolist()
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 1)))
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 1)))
 model.add(MaxPooling2D(2, 2))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D(2, 2))
@@ -30,7 +29,7 @@ model.add(Dropout(0.5))
 model.add(Dense(len(class_names), activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
-model.fit(x_train, y_train, batch_size=32, epochs=20, validation_data=(x_test, y_test))
+model.fit(x_train, y_train, batch_size=32, epochs=10, validation_data=(x_test, y_test))
 
 _, accuray = model.evaluate(x_test, y_test)
 print(f"Accuracy: {accuray * 100:.2f}")
