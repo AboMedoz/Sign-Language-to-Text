@@ -10,6 +10,11 @@ def preprocess_img(img, axis, color_mode='BGR'):
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     else:
         img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    img = cv2.GaussianBlur(img, (5, 5), 2)
+    thresh = cv2.adaptiveThreshold(
+        img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2
+    )
+    _, img = cv2.threshold(thresh, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_BINARY_INV)
     img = cv2.resize(img, (128, 128))
     img = img / 255.0
     img = np.expand_dims(img, axis)
