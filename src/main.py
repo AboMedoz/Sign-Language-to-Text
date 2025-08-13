@@ -61,7 +61,8 @@ def predict_sign():
                 y_max = min(y_max + padding, h)
 
                 hand_img = rgb[y_min:y_max, x_min:x_max]
-                roi = preprocess_img(hand_img, 0, 'RGB')
+                # roi = preprocess_img(hand_img, 0, 'RGB')  CNN
+                roi = preprocess_img(hand_img, 0, None)  # MobilenetV2
 
                 prediction_proba = model.predict(roi, verbose=0)
                 prediction = class_names[np.argmax(prediction_proba)]

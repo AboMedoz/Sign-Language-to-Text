@@ -21,7 +21,7 @@ class_names = data['class_names'].tolist()
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
-base_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(128, 128, 3))
+base_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(96, 96, 3))
 
 xs = base_model.output
 xs = GlobalAveragePooling2D()(xs)
@@ -31,5 +31,5 @@ model = Model(inputs=base_model.input, outputs=predictions)
 for layer in base_model.layers:
     layer.trainable = False
 model.compile(optimizer=Adam(learning_rate=1e-3), loss='categorical_crossentropy', metrics=['accuracy'])
-model.fit(x_train, y_train, batch_size=32, epoch=5, validation_data=(x_test, y_test))
+model.fit(x_train, y_train, batch_size=32, epochs=5, validation_data=(x_test, y_test))
 model.save(os.path.join(MODELS_PATH, 'mobilenetv2_sign_language_model.h5'))

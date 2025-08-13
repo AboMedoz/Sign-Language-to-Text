@@ -3,6 +3,8 @@ import numpy as np
 
 
 def preprocess_img(img, axis, color_mode='BGR'):
+    # color mode: 'RGB' or 'BGR' or 'None'
+    # Mediapipe & MobilenetV2 expects RGB
     if img is None or img.size == 0:
         pass
 
@@ -16,7 +18,7 @@ def preprocess_img(img, axis, color_mode='BGR'):
             img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2
         )
         _, img = cv2.threshold(thresh, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_BINARY_INV)
-    img = cv2.resize(img, (128, 128))
-    img = img / 255.0
+    img = cv2.resize(img, (96, 96))
+    img = img.astype(np.float32) / 255.0
     img = np.expand_dims(img, axis)
     return img

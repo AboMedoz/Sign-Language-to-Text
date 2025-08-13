@@ -32,7 +32,8 @@ int_labels = [class_names_to_index[label] for label in labels]
 x = np.array(imgs)
 y = to_categorical(int_labels)
 
-model = load_model(os.path.join(MODEL_PATH, 'sign_language_model.keras'))
+# model = load_model(os.path.join(MODEL_PATH, 'sign_language_model.keras'))  CNN
+model = load_model(os.path.join(MODEL_PATH, 'mobilenetv2_sign_language_model.h5'))  # MobilenetV2
 
 _, accuracy = model.evaluate(x, y)
 print(f"Accuracy: {accuracy * 100:.2f}")

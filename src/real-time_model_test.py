@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(__file__)
 ROOT = os.path.dirname(BASE_DIR)
 MODEL_PATH = os.path.join(ROOT, 'models')
 
-model = load_model(os.path.join(MODEL_PATH, 'sign_language_model.keras'))
+model = load_model(os.path.join(MODEL_PATH, 'mobilenetv2_sign_language_model.h5'))
 with open(os.path.join(MODEL_PATH, 'class_names.json'), 'r') as f:
     class_names = json.load(f)
 
@@ -62,7 +62,8 @@ while True:
             y_max = min(y_max + padding, h)
 
             hand_img = rgb[y_min:y_max, x_min:x_max]
-            hand_img = preprocess_img(hand_img, 0, 'RGB')
+            # hand_img = preprocess_img(hand_img, 0, 'RGB')  CNN
+            hand_img = preprocess_img(hand_img, 0, None)  # MobilenetV2
 
             prediction_proba = model.predict(hand_img, verbose=0)
             prediction = class_names[np.argmax(prediction_proba)]

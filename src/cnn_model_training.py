@@ -20,7 +20,7 @@ class_names = data['class_names'].tolist()
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 1)))
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(96, 96, 1)))
 model.add(MaxPooling2D(2, 2))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D(2, 2))
@@ -43,6 +43,6 @@ model.fit(datagen.flow(x_train, y_train, batch_size=32), epochs=10, validation_d
 _, accuray = model.evaluate(x_test, y_test)
 print(f"Accuracy: {accuray * 100:.2f}")
 
-model.save(os.path.join(MODEL_PATH, 'sign_language_model.keras'))
+model.save(os.path.join(MODEL_PATH, 'cnn_sign_language_model.keras'))
 with open(os.path.join(MODEL_PATH, 'class_names.json'), 'w') as f:
     json.dump(class_names, f)

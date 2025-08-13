@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, Response, render_template
+from flask import Flask, render_template, Response
 
 from main import predict_sign
 
